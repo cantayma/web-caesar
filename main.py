@@ -1,28 +1,47 @@
 import webapp2
 import string
 
-#rot 13 helper function from Unit 1, Ch. 12, Ex. 10.
-def rot13(mess):
+def alphabet_position(letter):
+    """
+    receives a letter, returns 0-based numerical position in the alphabet;
+    case-sensitive; assumes letters only input
+    """
 
-    idx=0
-    codedText=""
+    if letter in string.ascii_uppercase:
+        position = string.ascii_uppercase.find(letter)
 
-    while idx < len(mess):
-        if mess[idx] in string.ascii_lowercase:
-            cipheredLetter = string.ascii_lowercase[(string.ascii_lowercase.find(mess[idx]) + 13) % 26]
-            codedText += cipheredLetter
-            idx += 1
+    elif letter in string.ascii_lowercase:
+        position = string.ascii_lowercase.find(letter)
 
-        elif mess[idx] in string.ascii_uppercase:
-            cipheredLetter = string.ascii_uppercase[(string.ascii_uppercase.find(mess[idx]) + 13) % 26]
-            codedText += cipheredLetter
-            idx += 1
+    return position
 
-        else:
-            codedText += mess[idx]
-            idx += 1
+def rotate_character(char, rot):
+    """
+    recieves a string, char, and an integer, rot, and returns a new string
+    that is the character after it is rotated through the alphabet by rot
+    """
 
-    return codedText
+    if char in string.ascii_uppercase:
+        newChar = string.ascii_uppercase[(alphabet_position(char) + rot) % 26]
+    elif char in string.ascii_lowercase:
+        newChar = string.ascii_lowercase[(alphabet_position(char) + rot) % 26]
+    else:
+        newChar = char
+
+    return newChar
+
+def encrypt(text, rot):
+    """
+    receives a string, text and an int, rot, and returns the encrypted text by
+    rotating each character in text by rot positions
+    """
+
+    encryptedText = ""
+
+    for aLetter in text:
+        encryptedText += rotate_character(aLetter, rot)
+
+    return encryptedText
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
