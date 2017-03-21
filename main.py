@@ -4,6 +4,13 @@ import caesar
 class MainHandler(webapp2.RequestHandler):
     def get(self):
 
+        #ACTION attirbute tells us WHERE we submit the form to
+        #If there is no ACTION attirubte, the form sends an other http request to the same place it started
+        #The METHOD attirbute is used here with the value, POST.
+        #METHOD specifies which type of http request you want to send.
+        #The default method is GET request.
+        #Now that we have a POST REQUEST, we have set up a POST REQUEST HANDLER, other we get 405 error.
+
         message_label = "<label>Type a message: </label>"
         text_area = "<textarea name='message'></textarea>"
 
@@ -19,12 +26,6 @@ class MainHandler(webapp2.RequestHandler):
                     + submit_button
                     + "</form>")
 
-                                #ACTION attirbute tells us WHERE we submit the form to
-                                #If there is no ACTION attirubte, the form sends an other http request to the same place it started
-                                #The METHOD attirbute is used here with the value, POST.
-                                #METHOD specifies which type of http request you want to send.
-                                #The default method is GET request.
-                                #Now that we have a POST REQUEST, we have set up a POST REQUEST HANDLER, other we get 405 error.
         header = "<h2>Web Caesar</h2>"
 
         self.response.write(header + form)
@@ -40,7 +41,24 @@ class MainHandler(webapp2.RequestHandler):
 
         encrypted_message = caesar.encrypt(message, rotation)
 
-        self.response.write("Secret Message: " + encrypted_message)
+        message_label = "<label>Type a message: </label>"
+        text_area = "<textarea name='message'>" + encrypted_message + "</textarea>"
+
+        rotation_label = "<label>Rotate by: </label>"
+        rotation_input = "<input type='number' name='rotation' />"
+        submit_button = "<input type='submit' />"
+
+        form = ("<form method='post' >"
+                    + rotation_label + rotation_input
+                    + "<br><br>"
+                    + message_label + text_area
+                    + "<br><br>"
+                    + submit_button
+                    + "</form>")
+
+        header = "<h2>Web Caesar</h2>"
+
+        self.response.write(header + form)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
