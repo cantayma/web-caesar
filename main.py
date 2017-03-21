@@ -6,8 +6,8 @@ class MainHandler(webapp2.RequestHandler):
 
         message = "Hello, World!"
         rot_value = 13
-
-        self.response.write(caesar.encrypt(message, rot_value))
+        encrypted_message = caesar.encrypt(message, rot_value)
+        self.response.write("<textarea>" + encrypted_message + "</textarea>")
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
