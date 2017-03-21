@@ -46,12 +46,10 @@ def encrypt(text, rot):
 class MainHandler(webapp2.RequestHandler):
     def get(self):
 
-        header = "<h1>Enter some text to ROT13:</h1>"
+        message = "Hello, World!"
+        rot_value = 13
 
-        cipher_button = "<button>Submit</button>"
-
-        content = header + cipher_button
-        self.response.write(content)
+        self.response.write(encrypt(message, rot_value))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
