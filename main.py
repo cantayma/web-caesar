@@ -26,7 +26,11 @@ def rot13(mess):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+
+        header = "<h1>Enter some text to ROT13:</h1>"
+
+        content = header
+        self.response.write(content)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
