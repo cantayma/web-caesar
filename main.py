@@ -29,7 +29,9 @@ class MainHandler(webapp2.RequestHandler):
 
         header = "<h1>Enter some text to ROT13:</h1>"
 
-        content = header
+        cipher_button = "<button>Submit</button>"
+
+        content = header + cipher_button
         self.response.write(content)
 
 app = webapp2.WSGIApplication([
