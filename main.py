@@ -10,9 +10,9 @@ class MainHandler(webapp2.RequestHandler):
 
         text_area = "<textarea>" + encrypted_message + "</textarea>"
         submit_button = "<input type='submit' />"                            #creates a button that, when it is clicked,causes the form to submit
-        form = "<form>" + text_area + "</form>"
+        form = "<form>" + text_area + "<br><br>" + submit_button + "</form>"
 
-        self.response.write(form + submit_button)
+        self.response.write(form)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
