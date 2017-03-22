@@ -1,5 +1,6 @@
 import webapp2
 import caesar
+import cgi
 
 def build_page(textarea_content):
         #ACTION attirbute tells us WHERE we submit the form to
@@ -45,7 +46,8 @@ class MainHandler(webapp2.RequestHandler):
         rotation = int(self.request.get("rotation"))
         message = self.request.get("message")
         encrypted_message = caesar.encrypt(message, rotation)
-        content = build_page(encrypted_message)
+        escaped_message = cgi.escape(encrypted_message)
+        content = build_page(escaped_message)
         self.response.write(content)
 
 app = webapp2.WSGIApplication([
